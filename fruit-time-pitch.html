@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>“鲜果时光”校园鲜榨果汁创业计划书</title>
+<!-- Tailwind CSS -->
+<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.js"></script>
+<!-- Iconify 图标 -->
+<script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.js"></script>
+<!-- ECharts -->
+<script src="https://modao.cc/agent-py/static/source/js/echarts.min.js"></script>
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;300;400;500;700&display=swap');
+        
+        body {
+            font-family: 'Noto Sans SC', system-ui, -apple-system, sans-serif;
+            background-color: #f8fafc;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .slide.active {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .primary-green { color: #2D8A4E; }
+        .bg-primary-green { background-color: #2D8A4E; }
+        .border-primary-green { border-color: #2D8A4E; }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(45, 138, 78, 0.1);
+        }
+
+        /* 翻页热区 */
+        .nav-zone {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            width: 10%;
+            z-index: 50;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .nav-zone:hover { opacity: 0.3; }
+        .nav-left { left: 0; }
+        .nav-right { right: 0; }
+
+        /* 进度条 */
+        .progress-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 4px;
+            background-color: #2D8A4E;
+            transition: width 0.3s ease;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+<!-- 进度条 -->
+<div class="progress-bar" id="progressBar" style="width: 7.14%;"></div>
+<!-- 翻页控制热区 -->
+<div class="nav-zone nav-left" onclick="prevSlide()">
+<iconify-icon class="text-6xl" icon="lucide:chevron-left"></iconify-icon>
+</div>
+<div class="nav-zone nav-right" onclick="nextSlide()">
+<iconify-icon class="text-6xl" icon="lucide:chevron-right"></iconify-icon>
+</div>
+<!-- 幻灯片容器 -->
+<main class="relative w-screen h-screen overflow-hidden bg-white">
+<!-- 第1页 - 封面 -->
+<section class="slide active w-full h-full flex-col items-center justify-center text-center px-10">
+<div class="mb-8">
+<iconify-icon class="text-7xl primary-green mb-4" icon="lucide:leaf"></iconify-icon>
+<h1 class="text-6xl font-bold tracking-tight mb-4">“鲜果时光”</h1>
+<h2 class="text-3xl font-light text-slate-500 tracking-widest">校园鲜榨果汁创业计划书</h2>
+</div>
+<div class="w-24 h-1 bg-primary-green mb-12"></div>
+<div class="space-y-2 text-lg text-slate-400">
+<p>2026年春季学期《创业基础》课程作业</p>
+<p class="font-medium text-slate-600">团队名称：鲜果时光团队</p>
+</div>
+<div class="absolute bottom-12 left-12 text-left text-sm text-slate-400 space-y-1">
+<p>指导教师：张教授</p>
+<p>团队成员：王晨旭、陈佳乐、彭彦刚、李源</p>
+</div>
+</section>
+<!-- 第2页 - 目录 -->
+<section class="slide w-full h-full flex-col justify-center px-24">
+<h3 class="text-4xl font-light mb-16 flex items-center">
+<span class="w-12 h-[1px] bg-primary-green mr-4"></span>
+                目录 / CONTENTS
+            </h3>
+<div class="grid grid-cols-2 gap-x-24 gap-y-6 text-xl">
+<div class="flex items-center space-x-4 group cursor-pointer" onclick="goToSlide(2)">
+<span class="text-primary-green font-bold w-8">01</span>
+<span class="border-b border-transparent group-hover:border-primary-green transition-all">执行概要</span>
+</div>
+<div class="flex items-center space-x-4 group cursor-pointer" onclick="goToSlide(3)">
+<span class="text-primary-green font-bold w-8">02</span>
+<span class="border-b border-transparent group-hover:border-primary-green transition-all">市场痛点</span>
+</div>
+<div class="flex items-center space-x-4 group cursor-pointer" onclick="goToSlide(4)">
+<span class="text-primary-green font-bold w-8">03</span>
+<span class="border-b border-transparent group-hover:border-primary-green transition-all">产品介绍</span>
+</div>
+<div class="flex items-center space-x-4 group cursor-pointer" onclick="goToSlide(5)">
+<span class="text-primary-green font-bold w-8">04</span>
+<span class="border-b border-transparent group-hover:border-primary-green transition-all">商业模式</span>
+</div>
+<div class="flex items-center space-x-4 group cursor-pointer" onclick="goToSlide(6)">
+<span class="text-primary-green font-bold w-8">05</span>
+<span class="border-b border-transparent group-hover:border-primary-green transition-all">营销策略</span>
+</div>
+<div class="flex items-center space-x-4 group cursor-pointer" onclick="goToSlide(8)">
+<span class="text-primary-green font-bold w-8">06</span>
+<span class="border-b border-transparent group-hover:border-primary-green transition-all">SWOT分析</span>
+</div>
+<div class="flex items-center space-x-4 group cursor-pointer" onclick="goToSlide(10)">
+<span class="text-primary-green font-bold w-8">07</span>
+<span class="border-b border-transparent group-hover:border-primary-green transition-all">财务数据</span>
+</div>
+<div class="flex items-center space-x-4 group cursor-pointer" onclick="goToSlide(12)">
+<span class="text-primary-green font-bold w-8">08</span>
+<span class="border-b border-transparent group-hover:border-primary-green transition-all">未来计划</span>
+</div>
+</div>
+</section>
+<!-- 第3页 - 执行概要 -->
+<section class="slide w-full h-full flex-col p-20">
+<header class="mb-12">
+<h2 class="text-3xl font-bold flex items-center">
+<iconify-icon class="primary-green mr-3" icon="lucide:zap"></iconify-icon>
+                    执行概要
+                </h2>
+<p class="text-slate-400 mt-2 italic">Executive Summary</p>
+</header>
+<div class="grid grid-cols-2 gap-8 flex-1">
+<div class="p-8 rounded-2xl border border-slate-100 bg-slate-50/50">
+<h4 class="text-xl font-bold mb-4 flex items-center primary-green">
+<iconify-icon class="mr-2" icon="lucide:help-circle"></iconify-icon>
+                        为什么做
+                    </h4>
+<p class="text-slate-600 leading-relaxed">大学生日常饮水需求大，但水果摄入普遍不足；市售瓶装饮料含糖量高、添加剂多，不符合当代健康理念。</p>
+</div>
+<div class="p-8 rounded-2xl border border-slate-100 bg-slate-50/50">
+<h4 class="text-xl font-bold mb-4 flex items-center primary-green">
+<iconify-icon class="mr-2" icon="lucide:settings"></iconify-icon>
+                        怎么做
+                    </h4>
+<p class="text-slate-600 leading-relaxed">坚持100%新鲜水果现榨，支持“自助选果+即时榨汁”模式，结合小程序下单配送，打通校园最后一公里。</p>
+</div>
+<div class="p-8 rounded-2xl border border-slate-100 bg-slate-50/50">
+<h4 class="text-xl font-bold mb-4 flex items-center primary-green">
+<iconify-icon class="mr-2" icon="lucide:map-pin"></iconify-icon>
+                        做到哪里
+                    </h4>
+<p class="text-slate-600 leading-relaxed">选址学校核心商业街档口，覆盖周边1.5万名师生。这里是流量必经之地，具备极高的品牌曝光率。</p>
+</div>
+<div class="p-8 rounded-2xl border border-slate-100 bg-slate-50/50">
+<h4 class="text-xl font-bold mb-4 flex items-center primary-green">
+<iconify-icon class="mr-2" icon="lucide:award"></iconify-icon>
+                        核心竞争力
+                    </h4>
+<p class="text-slate-600 leading-relaxed">极致新鲜（现采现榨）、成本领先（果农直供）、情感连接（学生团队更懂校友需求）。</p>
+</div>
+</div>
+</section>
+<!-- 第4页 - 市场痛点分析 -->
+<section class="slide w-full h-full flex-col p-20">
+<header class="mb-12">
+<h2 class="text-3xl font-bold flex items-center">
+<iconify-icon class="primary-green mr-3" icon="lucide:search"></iconify-icon>
+                    市场痛点分析
+                </h2>
+</header>
+<div class="flex items-center justify-between flex-1">
+<div class="w-1/2 space-y-8">
+<div class="flex items-start space-x-4">
+<div class="w-10 h-10 rounded-full bg-red-50 text-red-500 flex items-center justify-center flex-shrink-0 mt-1">
+<iconify-icon icon="lucide:frown"></iconify-icon>
+</div>
+<div>
+<h4 class="text-xl font-bold mb-2">饮品结构单一</h4>
+<p class="text-slate-500">校内以高糖奶茶和瓶装水为主，缺乏天然、健康的饮品选择。</p>
+</div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="w-10 h-10 rounded-full bg-red-50 text-red-500 flex items-center justify-center flex-shrink-0 mt-1">
+<iconify-icon icon="lucide:clock"></iconify-icon>
+</div>
+<div>
+<h4 class="text-xl font-bold mb-2">吃水果太麻烦</h4>
+<p class="text-slate-500">削皮、去核、清洗费时费力，宿舍存储条件有限，水果极易腐烂。</p>
+</div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="w-10 h-10 rounded-full bg-red-50 text-red-500 flex items-center justify-center flex-shrink-0 mt-1">
+<iconify-icon icon="lucide:dollar-sign"></iconify-icon>
+</div>
+<div>
+<h4 class="text-xl font-bold mb-2">市售果汁昂贵</h4>
+<p class="text-slate-500">校外连锁品牌单价普遍在20元以上，超出学生日常消费水平。</p>
+</div>
+</div>
+</div>
+<div class="w-5/12 text-center p-12 rounded-3xl bg-green-50 border border-green-100">
+<p class="text-slate-500 mb-4">潜在月市场规模预测</p>
+<div class="text-6xl font-black primary-green mb-4">30<span class="text-2xl ml-1">万元/月</span></div>
+<div class="text-sm text-slate-400 leading-relaxed">
+                        1.5万校区人口 × 2次/月人均消费 × 10元客单价
+                    </div>
+<div class="mt-8 pt-8 border-t border-green-200 grid grid-cols-2 gap-4">
+<div>
+<div class="text-xl font-bold text-slate-700">1.5万</div>
+<div class="text-xs text-slate-400">覆盖人群</div>
+</div>
+<div>
+<div class="text-xl font-bold text-slate-700">60%</div>
+<div class="text-xs text-slate-400">健康意愿</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 第5页 - 产品介绍 -->
+<section class="slide w-full h-full flex-col p-20">
+<header class="mb-12">
+<h2 class="text-3xl font-bold flex items-center">
+<iconify-icon class="primary-green mr-3" icon="lucide:apple"></iconify-icon>
+                    产品介绍
+                </h2>
+</header>
+<div class="grid grid-cols-4 gap-6 mb-12">
+<div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 text-center hover:shadow-md transition-shadow">
+<img alt="Orange juice" class="w-24 h-24 mx-auto mb-4 object-cover rounded-full" src="/agent-py/static/source/images/placeholder.svg"/>
+<h4 class="font-bold">经典橙汁</h4>
+<p class="text-xs text-slate-400 mt-1">VC能量王</p>
+</div>
+<div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 text-center hover:shadow-md transition-shadow">
+<img alt="Watermelon juice" class="w-24 h-24 mx-auto mb-4 object-cover rounded-full" src="/agent-py/static/source/images/placeholder.svg"/>
+<h4 class="font-bold">激爽西瓜</h4>
+<p class="text-xs text-slate-400 mt-1">夏日解暑神器</p>
+</div>
+<div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 text-center hover:shadow-md transition-shadow">
+<img alt="Mango coconut milk" class="w-24 h-24 mx-auto mb-4 object-cover rounded-full" src="/agent-py/static/source/images/placeholder.svg"/>
+<h4 class="font-bold">芒果椰奶</h4>
+<p class="text-xs text-slate-400 mt-1">醇厚下午茶</p>
+</div>
+<div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 text-center hover:shadow-md transition-shadow">
+<img alt="Mixed veggie juice" class="w-24 h-24 mx-auto mb-4 object-cover rounded-full" src="/agent-py/static/source/images/placeholder.svg"/>
+<h4 class="font-bold">混合果蔬</h4>
+<p class="text-xs text-slate-400 mt-1">超模同款排毒</p>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-8">
+<div class="flex items-center p-6 bg-slate-50 rounded-xl">
+<iconify-icon class="text-4xl text-green-500 mr-4" icon="lucide:shield-check"></iconify-icon>
+<div>
+<h5 class="font-bold">绝对健康</h5>
+<p class="text-sm text-slate-500">无添加、不掺水、不加糖</p>
+</div>
+</div>
+<div class="flex items-center p-6 bg-slate-50 rounded-xl">
+<iconify-icon class="text-4xl text-green-500 mr-4" icon="lucide:badge-dollar-sign"></iconify-icon>
+<div>
+<h5 class="font-bold">极致实惠</h5>
+<p class="text-sm text-slate-500">较校外品牌便宜40%</p>
+</div>
+</div>
+<div class="flex items-center p-6 bg-slate-50 rounded-xl">
+<iconify-icon class="text-4xl text-green-500 mr-4" icon="lucide:timer"></iconify-icon>
+<div>
+<h5 class="font-bold">快速出品</h5>
+<p class="text-sm text-slate-500">商用冷压机，3分钟即饮</p>
+</div>
+</div>
+</div>
+</section>
+<!-- 第6页 - 商业模式 -->
+<section class="slide w-full h-full flex-col p-20">
+<header class="mb-12">
+<h2 class="text-3xl font-bold flex items-center">
+<iconify-icon class="primary-green mr-3" icon="lucide:layers"></iconify-icon>
+                    商业模式
+                </h2>
+</header>
+<div class="flex-1 grid grid-cols-3 gap-8 items-start">
+<div class="space-y-6">
+<div class="bg-primary-green text-white p-4 rounded-lg text-center font-bold">供应链端</div>
+<div class="p-6 border border-slate-100 rounded-xl text-center shadow-sm">
+<iconify-icon class="text-3xl primary-green mb-2" icon="lucide:truck"></iconify-icon>
+<h4 class="font-bold mb-2">果农直供</h4>
+<p class="text-sm text-slate-500">每日清晨从本地果园采摘，直达档口，确保新鲜且无中间商赚差价。</p>
+</div>
+</div>
+<div class="space-y-6">
+<div class="bg-primary-green text-white p-4 rounded-lg text-center font-bold">运营端</div>
+<div class="p-6 border border-slate-100 rounded-xl text-center shadow-sm">
+<iconify-icon class="text-3xl primary-green mb-2" icon="lucide:store"></iconify-icon>
+<h4 class="font-bold mb-2">直营+小程序</h4>
+<p class="text-sm text-slate-500">10-15㎡核心档口，支持到店自提与小程序下单配送，覆盖全校宿舍楼。</p>
+</div>
+</div>
+<div class="space-y-6">
+<div class="bg-primary-green text-white p-4 rounded-lg text-center font-bold">用户端</div>
+<div class="p-6 border border-slate-100 rounded-xl text-center shadow-sm">
+<iconify-icon class="text-3xl primary-green mb-2" icon="lucide:credit-card"></iconify-icon>
+<h4 class="font-bold mb-2">学期果汁卡</h4>
+<p class="text-sm text-slate-500">预存锁定消费。充100送20，建立高频复购习惯，锁定学期现金流。</p>
+</div>
+</div>
+</div>
+<div class="mt-12 p-6 bg-green-50 rounded-2xl flex items-center justify-between">
+<div class="flex items-center">
+<iconify-icon class="text-2xl primary-green mr-3" icon="lucide:info"></iconify-icon>
+<span class="text-slate-700 font-medium">核心逻辑：以低成本获取高质量生鲜，通过校园私域流量实现高转化。</span>
+</div>
+</div>
+</section>
+<!-- 第7页 - 盈利模式分析 -->
+<section class="slide w-full h-full flex-col p-20">
+<header class="mb-12">
+<h2 class="text-3xl font-bold flex items-center">
+<iconify-icon class="primary-green mr-3" icon="lucide:pie-chart"></iconify-icon>
+                    盈利模式分析
+                </h2>
+</header>
+<div class="flex-1 flex gap-12">
+<div class="w-1/2">
+<h4 class="text-xl font-bold mb-6">成本结构占比</h4>
+<div class="w-full h-80" id="costChart"></div>
+</div>
+<div class="w-1/2 flex flex-col justify-center space-y-8">
+<div class="p-8 rounded-2xl bg-slate-50 border border-slate-100">
+<h4 class="text-slate-500 mb-4">单品利润模型 (杯均)</h4>
+<div class="flex items-end space-x-4 mb-6">
+<div>
+<div class="text-sm text-slate-400">平均售价</div>
+<div class="text-3xl font-bold">¥12</div>
+</div>
+<div class="text-2xl text-slate-300 font-light mb-1">-</div>
+<div>
+<div class="text-sm text-slate-400">综合成本</div>
+<div class="text-3xl font-bold">¥5</div>
+</div>
+<div class="text-2xl text-slate-300 font-light mb-1">=</div>
+<div>
+<div class="text-sm text-primary-green font-bold">毛利润</div>
+<div class="text-4xl font-black primary-green">¥7</div>
+</div>
+</div>
+<div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden flex">
+<div class="h-full bg-primary-green" style="width: 58%;"></div>
+<div class="h-full bg-slate-300" style="width: 42%;"></div>
+</div>
+<div class="flex justify-between mt-2 text-xs text-slate-400">
+<span>毛利率：58%</span>
+<span>成本率：42%</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="p-4 border border-slate-100 rounded-xl">
+<div class="text-sm text-slate-400 mb-1">主要收入</div>
+<div class="font-bold">果汁销售 (85%)</div>
+</div>
+<div class="p-4 border border-slate-100 rounded-xl">
+<div class="text-sm text-slate-400 mb-1">增值收入</div>
+<div class="font-bold">果盒/社团合作</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 第8页 - 营销策略 -->
+<section class="slide w-full h-full flex-col p-20">
+<header class="mb-12">
+<h2 class="text-3xl font-bold flex items-center">
+<iconify-icon class="primary-green mr-3" icon="lucide:megaphone"></iconify-icon>
+                    营销策略
+                </h2>
+</header>
+<div class="flex-1 grid grid-cols-2 gap-12">
+<div class="space-y-8">
+<div class="flex items-center space-x-4">
+<div class="w-12 h-12 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+<iconify-icon class="text-2xl" icon="lucide:smartphone"></iconify-icon>
+</div>
+<h4 class="text-2xl font-bold">线上社交裂变</h4>
+</div>
+<ul class="space-y-4 pl-16">
+<li class="flex items-start space-x-2">
+<iconify-icon class="text-green-500 mt-1" icon="lucide:check-circle-2"></iconify-icon>
+<span><strong class="text-slate-700">私域运营：</strong>建立各楼栋“水果福利群”，每日播报到货新鲜度。</span>
+</li>
+<li class="flex items-start space-x-2">
+<iconify-icon class="text-green-500 mt-1" icon="lucide:check-circle-2"></iconify-icon>
+<span><strong class="text-slate-700">视觉营销：</strong>小红书/抖音美图打卡，凭打卡记录立减2元。</span>
+</li>
+<li class="flex items-start space-x-2">
+<iconify-icon class="text-green-500 mt-1" icon="lucide:check-circle-2"></iconify-icon>
+<span><strong class="text-slate-700">公众号：</strong>深度推文讲述“果园到杯中”的溯源故事。</span>
+</li>
+</ul>
+</div>
+<div class="space-y-8 border-l border-slate-100 pl-12">
+<div class="flex items-center space-x-4">
+<div class="w-12 h-12 bg-orange-50 text-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
+<iconify-icon class="text-2xl" icon="lucide:users"></iconify-icon>
+</div>
+<h4 class="text-2xl font-bold">线下场景渗透</h4>
+</div>
+<ul class="space-y-4 pl-16">
+<li class="flex items-start space-x-2">
+<iconify-icon class="text-green-500 mt-1" icon="lucide:check-circle-2"></iconify-icon>
+<span><strong class="text-slate-700">开业轰动：</strong>首周“买一送一”，随单赠送定制水果贴纸。</span>
+</li>
+<li class="flex items-start space-x-2">
+<iconify-icon class="text-green-500 mt-1" icon="lucide:check-circle-2"></iconify-icon>
+<span><strong class="text-slate-700">跨界联动：</strong>与校健身房、舞蹈社合作，提供“运动后补给”。</span>
+</li>
+<li class="flex items-start space-x-2">
+<iconify-icon class="text-green-500 mt-1" icon="lucide:check-circle-2"></iconify-icon>
+<span><strong class="text-slate-700">快闪活动：</strong>教学楼大厅举行“盲测免费试喝”活动。</span>
+</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- 第9页 - SWOT分析 -->
+<section class="slide w-full h-full flex-col p-20">
+<header class="mb-12">
+<h2 class="text-3xl font-bold flex items-center">
+<iconify-icon class="primary-green mr-3" icon="lucide:grid"></iconify-icon>
+                    SWOT分析
+                </h2>
+</header>
+<div class="flex-1 grid grid-cols-2 grid-rows-2 gap-4">
+<div class="p-8 rounded-2xl bg-green-50/50 border border-green-100 relative overflow-hidden">
+<div class="absolute -right-4 -top-4 text-6xl font-black text-green-200/30">S</div>
+<h4 class="text-xl font-bold text-green-700 mb-4">优势 (Strengths)</h4>
+<ul class="text-sm space-y-2 text-slate-600">
+<li>• 学校政策支持大学生创业</li>
+<li>• 学生团队，极高的社交触达力</li>
+<li>• 100%纯天然，产品力差异化明显</li>
+<li>• 极致价格优势（较校外更低）</li>
+</ul>
+</div>
+<div class="p-8 rounded-2xl bg-slate-50 border border-slate-100 relative overflow-hidden">
+<div class="absolute -right-4 -top-4 text-6xl font-black text-slate-200/30">W</div>
+<h4 class="text-xl font-bold text-slate-700 mb-4">劣势 (Weaknesses)</h4>
+<ul class="text-sm space-y-2 text-slate-600">
+<li>• 启动资金有限，抗风险能力弱</li>
+<li>• 团队缺乏商业实操经验</li>
+<li>• 品牌初期知名度较低</li>
+<li>• 对榨汁设备依赖性高</li>
+</ul>
+</div>
+<div class="p-8 rounded-2xl bg-blue-50/50 border border-blue-100 relative overflow-hidden">
+<div class="absolute -right-4 -top-4 text-6xl font-black text-blue-200/30">O</div>
+<h4 class="text-xl font-bold text-blue-700 mb-4">机会 (Opportunities)</h4>
+<ul class="text-sm space-y-2 text-slate-600">
+<li>• 大健康消费趋势持续升温</li>
+<li>• 校内高品质果汁市场尚属空白</li>
+<li>• 校园社交媒体易形成病毒式传播</li>
+<li>• 可扩展性强（如轻食、果盒）</li>
+</ul>
+</div>
+<div class="p-8 rounded-2xl bg-red-50/50 border border-red-100 relative overflow-hidden">
+<div class="absolute -right-4 -top-4 text-6xl font-black text-red-200/30">T</div>
+<h4 class="text-xl font-bold text-red-700 mb-4">威胁 (Threats)</h4>
+<ul class="text-sm space-y-2 text-slate-600">
+<li>• 校外成熟饮品品牌的入驻压力</li>
+<li>• 季节性水果价格波动大</li>
+<li>• 食品安全管理的极端重要性</li>
+<li>• 寒暑假带来的业务淡季</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- 第10页 - 风险分析及应对 -->
+<section class="slide w-full h-full flex-col p-20">
+<header class="mb-12">
+<h2 class="text-3xl font-bold flex items-center">
+<iconify-icon class="primary-green mr-3" icon="lucide:alert-triangle"></iconify-icon>
+                    风险分析及应对
+                </h2>
+</header>
+<div class="flex-1 space-y-6">
+<div class="flex gap-6">
+<div class="w-1/3 p-6 bg-white border border-slate-100 rounded-2xl shadow-sm">
+<div class="inline-block px-3 py-1 rounded-full bg-red-100 text-red-600 text-xs font-bold mb-4">资金风险</div>
+<h4 class="font-bold mb-2">启动及运营资金紧张</h4>
+<p class="text-sm text-slate-500 mb-4">初期设备及租金投入大，可能导致流动性不足。</p>
+<div class="pt-4 border-t border-slate-50">
+<div class="text-xs font-bold text-slate-400 mb-2 uppercase">应对方案</div>
+<p class="text-sm primary-green font-medium">采用MVP模式启动，申请学校创业免息贷款，初期将成本控制在1万元内。</p>
+</div>
+</div>
+<div class="w-1/3 p-6 bg-white border border-slate-100 rounded-2xl shadow-sm">
+<div class="inline-block px-3 py-1 rounded-full bg-orange-100 text-orange-600 text-xs font-bold mb-4">市场风险</div>
+<h4 class="font-bold mb-2">口味接受度及竞争压力</h4>
+<p class="text-sm text-slate-500 mb-4">产品可能不合学生口味，或遭遇竞品打折排挤。</p>
+<div class="pt-4 border-t border-slate-50">
+<div class="text-xs font-bold text-slate-400 mb-2 uppercase">应对方案</div>
+<p class="text-sm primary-green font-medium">建立快速迭代机制，每周推出特价新品并收集反馈；主打“绝对新鲜”的差异化心智。</p>
+</div>
+</div>
+<div class="w-1/3 p-6 bg-white border border-slate-100 rounded-2xl shadow-sm">
+<div class="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-600 text-xs font-bold mb-4">食安风险</div>
+<h4 class="font-bold mb-2">原材料变质及卫生问题</h4>
+<p class="text-sm text-slate-500 mb-4">生鲜易腐烂，加工过程易污染。</p>
+<div class="pt-4 border-t border-slate-50">
+<div class="text-xs font-bold text-slate-400 mb-2 uppercase">应对方案</div>
+<p class="text-sm primary-green font-medium">坚持“日进日清”零库存模式，设备每4小时消毒一次，操作间全透明可视化。</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 第11页 - 财务数据 -->
+<section class="slide w-full h-full flex-col p-20">
+<header class="mb-12">
+<h2 class="text-3xl font-bold flex items-center">
+<iconify-icon class="primary-green mr-3" icon="lucide:bar-chart-3"></iconify-icon>
+                    首月财务预测
+                </h2>
+</header>
+<div class="flex-1 grid grid-cols-2 gap-12">
+<div>
+<h4 class="text-xl font-bold mb-6">收支对比 (万元)</h4>
+<div class="w-full h-80" id="financeChart"></div>
+</div>
+<div class="space-y-6">
+<div class="grid grid-cols-2 gap-4">
+<div class="p-6 bg-slate-50 rounded-2xl">
+<div class="text-sm text-slate-400 mb-1">首月投入</div>
+<div class="text-2xl font-bold">3.0 <span class="text-sm font-normal">万元</span></div>
+</div>
+<div class="p-6 bg-slate-50 rounded-2xl border-l-4 border-primary-green">
+<div class="text-sm text-slate-400 mb-1">预计月收入</div>
+<div class="text-2xl font-bold">2.4 <span class="text-sm font-normal">万元</span></div>
+</div>
+</div>
+<div class="p-8 bg-green-50 rounded-2xl text-center">
+<div class="text-slate-500 mb-2 text-lg">首月预计净利润</div>
+<div class="text-5xl font-black primary-green">¥5,000</div>
+<p class="text-xs text-slate-400 mt-4 leading-relaxed">基于日均80杯、客单价10元的保守估计。<br/>随着品牌传播，预计第3个月利润翻倍。</p>
+</div>
+<div class="text-sm text-slate-400 italic">
+                        * 投入包含：设备1.5万、首批水果0.5万、包装营销0.3万、保证金0.7万。
+                    </div>
+</div>
+</div>
+</section>
+<!-- 第12页 - 团队成员介绍 -->
+<section class="slide w-full h-full flex-col p-20">
+<header class="mb-12">
+<h2 class="text-3xl font-bold flex items-center">
+<iconify-icon class="primary-green mr-3" icon="lucide:users-2"></iconify-icon>
+                    团队成员
+                </h2>
+</header>
+<div class="flex-1 grid grid-cols-4 gap-8">
+<div class="flex flex-col items-center p-8 border border-slate-100 rounded-3xl text-center">
+<div class="w-24 h-24 bg-slate-100 rounded-full mb-6 flex items-center justify-center text-slate-400">
+<iconify-icon class="text-5xl" icon="lucide:user"></iconify-icon>
+</div>
+<h4 class="text-xl font-bold mb-1">王晨旭</h4>
+<p class="text-primary-green font-medium mb-4">资料收集 / 调研</p>
+<p class="text-xs text-slate-400">国际经济与贸易专业</p>
+</div>
+<div class="flex flex-col items-center p-8 border border-slate-100 rounded-3xl text-center shadow-lg shadow-green-100/50 scale-105 bg-white z-10">
+<div class="w-24 h-24 bg-green-100 rounded-full mb-6 flex items-center justify-center primary-green">
+<iconify-icon class="text-5xl" icon="lucide:user"></iconify-icon>
+</div>
+<h4 class="text-xl font-bold mb-1">陈佳乐</h4>
+<p class="text-primary-green font-medium mb-4">PPT制作 / 设计</p>
+<p class="text-xs text-slate-400">国际经济与贸易专业</p>
+</div>
+<div class="flex flex-col items-center p-8 border border-slate-100 rounded-3xl text-center">
+<div class="w-24 h-24 bg-slate-100 rounded-full mb-6 flex items-center justify-center text-slate-400">
+<iconify-icon class="text-5xl" icon="lucide:user"></iconify-icon>
+</div>
+<h4 class="text-xl font-bold mb-1">彭彦刚</h4>
+<p class="text-primary-green font-medium mb-4">数据分析 / 财务</p>
+<p class="text-xs text-slate-400">国际经济与贸易专业</p>
+</div>
+<div class="flex flex-col items-center p-8 border border-slate-100 rounded-3xl text-center">
+<div class="w-24 h-24 bg-slate-100 rounded-full mb-6 flex items-center justify-center text-slate-400">
+<iconify-icon class="text-5xl" icon="lucide:user"></iconify-icon>
+</div>
+<h4 class="text-xl font-bold mb-1">李源</h4>
+<p class="text-primary-green font-medium mb-4">修改意见 / 统筹</p>
+<p class="text-xs text-slate-400">国际经济与贸易专业</p>
+</div>
+</div>
+</section>
+<!-- 第13页 - 未来计划 -->
+<section class="slide w-full h-full flex-col p-20">
+<header class="mb-12">
+<h2 class="text-3xl font-bold flex items-center">
+<iconify-icon class="primary-green mr-3" icon="lucide:rocket"></iconify-icon>
+                    未来计划
+                </h2>
+</header>
+<div class="flex-1 relative">
+<!-- 时间轴中线 -->
+<div class="absolute left-1/2 top-0 bottom-0 w-[1px] bg-slate-200"></div>
+<div class="space-y-16">
+<div class="flex items-center">
+<div class="w-1/2 pr-12 text-right">
+<h4 class="text-xl font-bold primary-green mb-2">6月（试营业）</h4>
+<p class="text-slate-500">日均100杯目标，优化配方，稳定50名活跃会员，完成品牌VI系统。</p>
+</div>
+<div class="w-4 h-4 rounded-full bg-primary-green border-4 border-white shadow-sm z-10"></div>
+<div class="w-1/2 pl-12"></div>
+</div>
+<div class="flex items-center">
+<div class="w-1/2 pr-12"></div>
+<div class="w-4 h-4 rounded-full bg-primary-green border-4 border-white shadow-sm z-10"></div>
+<div class="w-1/2 pl-12 text-left">
+<h4 class="text-xl font-bold primary-green mb-2">1年计划</h4>
+<p class="text-slate-500">月均稳定收入3万+，研发3款高人气自研配方，申请品牌商标，建立标准化SOP。</p>
+</div>
+</div>
+<div class="flex items-center">
+<div class="w-1/2 pr-12 text-right">
+<h4 class="text-xl font-bold primary-green mb-2">2年计划</h4>
+<p class="text-slate-500">在校内或临近校区开设第2家分店，引入“果汁+轻食”模式，探索校园加盟连锁。</p>
+</div>
+<div class="w-4 h-4 rounded-full bg-primary-green border-4 border-white shadow-sm z-10"></div>
+<div class="w-1/2 pl-12"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- 第14页 - 致谢 -->
+<section class="slide w-full h-full flex-col items-center justify-center text-center p-20">
+<div class="mb-12">
+<iconify-icon class="text-6xl primary-green mb-6 animate-pulse" icon="lucide:heart"></iconify-icon>
+<h2 class="text-6xl font-black tracking-tight mb-4">感谢聆听</h2>
+<div class="w-16 h-1 bg-primary-green mx-auto mb-8"></div>
+<p class="text-2xl font-light text-slate-500 tracking-widest italic">“鲜果时光 · 新鲜每一杯”</p>
+</div>
+<div class="mt-12 space-y-2 text-slate-400">
+<p>Q&amp;A 欢迎提问</p>
+<p class="text-sm">联系方式：team@fruit-time.campus</p>
+</div>
+</section>
+</main>
+<!-- 底部状态栏 -->
+<div class="fixed bottom-6 right-12 text-slate-300 font-mono text-sm z-40">
+<span id="slideNumber">1</span> / 14
+    </div>
+<script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const slideNumber = document.getElementById('slideNumber');
+        const progressBar = document.getElementById('progressBar');
+
+        function updateUI() {
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
+            });
+            slideNumber.innerText = currentSlide + 1;
+            progressBar.style.width = ((currentSlide + 1) / slides.length * 100) + '%';
+            
+            // 延迟渲染图表以确保容器可见
+            if (currentSlide === 6) initCostChart();
+            if (currentSlide === 10) initFinanceChart();
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                updateUI();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateUI();
+            }
+        }
+
+        function goToSlide(n) {
+            currentSlide = n;
+            updateUI();
+        }
+
+        // 键盘监听
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') nextSlide();
+            if (e.key === 'ArrowLeft' || e.key === 'PageUp') prevSlide();
+        });
+
+        // 图表初始化
+        let costChart, financeChart;
+
+        function initCostChart() {
+            if (costChart) return;
+            const chartDom = document.getElementById('costChart');
+            costChart = echarts.init(chartDom);
+            const option = {
+                tooltip: { trigger: 'item' },
+                color: ['#2D8A4E', '#4CAF50', '#81C784', '#C8E6C9', '#E8F5E9'],
+                series: [
+                    {
+                        name: '成本结构',
+                        type: 'pie',
+                        radius: ['50%', '70%'],
+                        avoidLabelOverlap: false,
+                        itemStyle: { borderRadius: 10, borderColor: '#fff', borderWidth: 2 },
+                        label: { show: true, position: 'outside', formatter: '{b}\n{d}%' },
+                        data: [
+                            { value: 45, name: '水果采购' },
+                            { value: 25, name: '人力成本' },
+                            { value: 15, name: '租金水电' },
+                            { value: 10, name: '包装耗材' },
+                            { value: 5, name: '营销推广' }
+                        ]
+                    }
+                ]
+            };
+            costChart.setOption(option);
+        }
+
+        function initFinanceChart() {
+            if (financeChart) return;
+            const chartDom = document.getElementById('financeChart');
+            financeChart = echarts.init(chartDom);
+            const option = {
+                tooltip: { trigger: 'axis' },
+                xAxis: { type: 'category', data: ['首月收入', '首月成本', '首月利润'] },
+                yAxis: { type: 'value', name: '万元' },
+                series: [
+                    {
+                        data: [
+                            { value: 2.4, itemStyle: { color: '#2D8A4E' } },
+                            { value: 1.9, itemStyle: { color: '#94a3b8' } },
+                            { value: 0.5, itemStyle: { color: '#4CAF50' } }
+                        ],
+                        type: 'bar',
+                        barWidth: '40%',
+                        label: { show: true, position: 'top', formatter: '{c}w' }
+                    }
+                ]
+            };
+            financeChart.setOption(option);
+        }
+
+        // 窗口缩放自适应
+        window.addEventListener('resize', () => {
+            if (costChart) costChart.resize();
+            if (financeChart) financeChart.resize();
+        });
+    </script>
+</body>
+</html>
